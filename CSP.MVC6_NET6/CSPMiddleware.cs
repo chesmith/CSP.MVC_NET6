@@ -15,9 +15,20 @@ namespace CSP.MVC_NET6
         public async Task Invoke(HttpContext context)
         {
             string nonce = GenerateNonce();
-            string policy = $"default-src 'self' 'nonce-{nonce}'; script-src-attr 'unsafe-inline'; connect-src  wss://localhost:*";
+            //string policy = $"default-src 'self' 'nonce-{nonce}'; script-src-attr 'unsafe-inline'; connect-src  wss://localhost:*";
+			string policy = $"default-src 'self'; " +
+				$"script-src 'self' 'unsafe-eval'; " +
+				$"script-src-elem 'self' 'nonce-{nonce}' www.scripthost.com; " +
+				$"script-src-attr 'unsafe-inline'; " +
+				$"style-src 'self'; " +
+				$"style-src-elem 'self' 'nonce-{nonce}' www.stylehost.com; " +
+				$"style-src-attr 'unsafe-inline'; " +
+				$"object-src 'none'; " +
+				$"frame-ancestors 'self'; " +
+				$"frame-src 'self';" +
+                $"connect-src wss://localhost:*;";
 
-            context.Response.Headers.Add("Content-Security-Policy", policy);
+			context.Response.Headers.Add("Content-Security-Policy", policy);
 
             // You can also add other security headers if needed, like X-Content-Type-Options, X-Frame-Options, etc.
 

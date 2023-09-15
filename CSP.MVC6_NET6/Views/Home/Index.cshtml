@@ -2,14 +2,31 @@
     ViewData["Title"] = "Home Page";
 }
 
+<!-- POC BEGIN -->
+<style nonce="{nonce}">
+    .testStyle {
+        color: green
+    }
+</style>
+
 <script nonce="{nonce}">
     function test() {
-        console.log('test');
+        console.log('test 1');
+        eval("console.log('eval test')");
     }
 </script>
+
+<button onclick="test();">Test 1 (calls method in inline script block which calls console.log and eval())</button>
+<br />
+<button onclick="console.log('test 2');">Test 2 (directly calls console.log in onclick)</button>
+<br />
+<button onclick="eval('console.log(1)')">Test 3 (calls eval('console.log(1)') in onclick)</button>
+<br />
+<div style="color:red">This uses an inline style defined in the style attribute</div>
+<div class="testStyle">This uses an inline style defined in an inline &lt;style&gt; block</div>
+<!-- POC END -->
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <button onclick="test();">Test</button>
 </div>
